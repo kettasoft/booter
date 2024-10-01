@@ -1,0 +1,21 @@
+{
+    "name": "kettasoft/booter",
+    "description": "The Laravel Model Event Booter package provides a flexible way to organize and manage model event handling in Laravel applications. It allows developers to define specific actions for model events (such as created, updated, deleted, etc.) by associating them with custom classes. The package simplifies the process of executing logic for model events and makes it easy to extend and maintain event-driven behavior.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Scaffolding\\Booter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abdalrhman Emad Saad",
+            "email": "kettasoft@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/framework": "^10.0"
+    }
+}
