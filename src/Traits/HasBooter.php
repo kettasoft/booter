@@ -23,25 +23,25 @@ trait HasBooter
 
     $instance = new static;
 
-    foreach(array_keys(self::$providers) as $provider) {
-      if (in_array($provider, $instance->getObservableEvents())) {
-        self::$provider(function (Model $model) use($provider): void {
-          self::dispatchBootProviders(self::$providers[$provider], $model);
+    foreach(array_keys(self::$events) as $event) {
+      if (in_array($event, $instance->getObservableEvents())) {
+        self::$event(function (Model $model) use($event): void {
+          self::dispatchBootProviders(self::$events[$event], $model);
         });
       }
     }
   }
 
   /**
-   * Dispatch the provider classes
-   * @param array $providers
+   * Dispatch the event classes
+   * @param array $events
    * @param mixed $model
    * @return void
    */
-  protected static function dispatchBootProviders(array $providers, $model): void
+  protected static function dispatchBootProviders(array $events, $model): void
   {
-    foreach($providers as $provider) {
-      $resolver = resolve($provider);
+    foreach($events as $event) {
+      $resolver = resolve($event);
 
       if ($resolver instanceof HasBooterContract) {
         $resolver->handle($model);
@@ -50,11 +50,11 @@ trait HasBooter
   }
 
   /**
-   * Check the model has providers property.
+   * Check the model has events property.
    * @return bool
    */
   public static function checkModelHasProvidersProperty(): bool
   {
-    return property_exists(self::class, 'providers');
+    return property_exists(self::class, 'events');
   }
 }
