@@ -1,6 +1,11 @@
 # Laravel Model Event Booter
 **Laravel Model Event Booter** is a package that simplifies managing model events in Laravel by allowing you to define and map model events (e.g., `created`, `updated`, `deleted`, etc.) to custom classes. These classes handle the logic associated with those events, making your code cleaner, modular, and easier to maintain.
 
+[![Total Downloads](https://img.shields.io/packagist/dt/kettasoft/booter?style=for-the-badge)](https://packagist.org/packages/kettasoft/booter)
+[![Latest Stable Version](http://poser.pugx.org/kettasoft/booter/v?style=for-the-badge)](https://packagist.org/packages/kettasoft/booter)
+[![License](http://poser.pugx.org/kettasoft/booter/license?style=for-the-badge)](https://packagist.org/packages/kettasoft/booter)
+[![PHP Version Require](http://poser.pugx.org/kettasoft/booter/require/php?style=for-the-badge)](https://packagist.org/packages/kettasoft/booter)
+
 ## Features
 - Automatically boot and trigger model events with custom logic.
 - Organize event-specific logic into separate, reusable classes.
