@@ -6,7 +6,7 @@
 [![Latest Stable Version](https://poser.pugx.org/santigarcor/booter/v?style=for-the-badge)](//packagist.org/packages/kettasoft/booter)
 [![Total Downloads](https://poser.pugx.org/kettasoft/booter/downloads?style=for-the-badge)](//packagist.org/packages/kettasoft/booter)
 [![License](https://poser.pugx.org/kettasoft/booter/license?style=for-the-badge)](//packagist.org/packages/kettasoft/booter)
-[![tests](https://github.com/kettasoft/booter/workflows/tests/badge.svg)](https://github.com/kettasoft/booter/actions?query=workflow%3Atests)
+[![tests](https://github.com/kettasoft/booter/workflows/tests/badge.svg)](https://github.com/kettasoft/booter/actions?query=workflows/tests)
 
 ## Features
 
