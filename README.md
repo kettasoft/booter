@@ -26,6 +26,11 @@ composer require kettasoft/booter
 2. - Add the `HasBooter` trait to any model where you want to manage events.
 
 3. - Define the `$events` array in the model to map events to the classes that will handle them.
+  
+4. - Publish the package's configuration file by running:
+```dash
+php artisan vendor:publish --provider="Scaffolding\Booter\Providers\BooterServiceProvider" --tag=config
+```
 
 ## Usage
 
@@ -62,9 +67,9 @@ class Post extends Model
 ```php
 namespace App\Boots;
 
-use Scaffolding\Booter\Contracts\HasBooterContract;
+use Scaffolding\Booter\HasBooter;
 
-class AttachAuthorIdBoot implements HasBooterContract
+class AttachAuthorIdBoot extends HasBooter
 {
     /**
      * Handle the model event.
