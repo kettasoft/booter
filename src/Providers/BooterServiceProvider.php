@@ -19,18 +19,11 @@ class BooterServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->configure();
         $this->registerCommands();
-    }
 
-    /**
-     * Setup the configuration for Booter.
-     *
-     * @return void
-     */
-    protected function configure(): void
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/booter.php', 'booter');
+        $this->publishes([
+            __DIR__ . '/../../config/booter.php' => config_path('booter.php'),
+        ], 'config');
     }
 
     /**
