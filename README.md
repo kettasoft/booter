@@ -67,9 +67,9 @@ class Post extends Model
 ```php
 namespace App\Boots;
 
-use Scaffolding\Booter\Contracts\HasBooterContract;
+use Scaffolding\Booter\HasBooter;
 
-class AttachAuthorIdBoot implements HasBooterContract
+class AttachAuthorIdBoot extends HasBooter
 {
     /**
      * Handle the model event.
