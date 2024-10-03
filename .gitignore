@@ -1,1 +1,24 @@
-/vendor/
+### Docs ###
+build/
+cache/
+
+### PHP ###
+
+/bootstrap/compiled.php
+/vendor
+/node_modules
+composer.phar
+composer.lock
+.DS_Store
+Thumbs.db
+
+/conf
+.idea
+/.settings
+/.vscode
+.env.*.php
+.env.php
+bump-version.sh
+
+# vscode phpunit
+.phpunit.result.cache
