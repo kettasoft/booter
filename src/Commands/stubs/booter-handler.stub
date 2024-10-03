@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Boot;
+
+use \Illuminate\Database\Eloquent\Model;
+use Scaffolding\Booter\HasBooter;
+
+class {{class}} extends HasBooter
+{
+    public function handle(Model $model)
+    {
+        // Your custom logic here
+    }
+}

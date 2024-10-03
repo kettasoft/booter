@@ -2,49 +2,58 @@
 
 namespace Scaffolding\Booter\Traits;
 
+use Scaffolding\Booter\HasBooter as HasBooterAbstract;
 use Illuminate\Database\Eloquent\Model;
-use Scaffolding\Booter\Contracts\HasBooterContract;
-use Scaffolding\Booter\Exceptions\ModelDoesntHasProvidersProperty;
+use Scaffolding\Booter\Contracts\EventShouldQueue;
+use Scaffolding\Booter\Exceptions\ModelDoesntHasEventsProperty;
 
 trait HasBooter
 {
   /**
-     * Bootstrap the model.
-     *
-     * @return void
-     */
-  public static function boot(): void 
+   * Bootstrap the model.
+   *
+   * @return void
+   */
+  public static function boot(): void
   {
     if (! self::checkModelHasProvidersProperty()) {
-      throw new ModelDoesntHasProvidersProperty(self::class);
+      throw new ModelDoesntHasEventsProperty(self::class);
     }
 
     parent::boot();
 
-    $instance = new static;
-
-    foreach(array_keys(self::$events) as $event) {
-      if (in_array($event, $instance->getObservableEvents())) {
-        self::$event(function (Model $model) use($event): void {
-          self::dispatchBootProviders(self::$events[$event], $model);
-        });
-      }
+    foreach (static::getModelEvents() as $event => $handlers) {
+      static::registerModelEvent($event, function (Model $model) use ($handlers) {
+        static::dispatchBootHandlers($handlers, $model);
+      });
     }
   }
 
   /**
-   * Dispatch the event classes
-   * @param array $events
+   * Dispatch the event handlers for the given events
+   * @param array<HasBooterAbstract> $events
    * @param mixed $model
    * @return void
    */
-  protected static function dispatchBootProviders(array $events, $model): void
+  protected static function dispatchBootHandlers(array $events, Model $model): void
   {
-    foreach($events as $event) {
-      $resolver = resolve($event);
+    foreach ($events as $event) {
+      $handler = $event::getInstance();
 
-      if ($resolver instanceof HasBooterContract) {
-        $resolver->handle($model);
+      if ($handler instanceof HasBooterAbstract) {
+
+        if ($handler instanceof EventShouldQueue) {
+          dispatch(function () use ($handler, $model): void {
+            $handler->handle($model);
+          });
+        }
+
+        /**
+         * Invoke the given handler without queue.
+         */
+        else {
+          $handler->handle($model);
+        }
       }
     }
   }
@@ -56,5 +65,18 @@ trait HasBooter
   public static function checkModelHasProvidersProperty(): bool
   {
     return property_exists(self::class, 'events');
+  }
+
+  /**
+   * Get the model's event-to-class mappings, including config mappings.
+   *
+   * @return array
+   */
+  protected static function getModelEvents(): array
+  {
+    return array_merge(
+      config('booter.mappings.' . static::class, []),
+      static::$events ?? []
+    );
   }
 }
